@@ -43,7 +43,7 @@ d3.csv("cereal.csv")
       el.innerHTML = name + " - "
     })
 
-
+    // Create circle distribution
     d3.select('#svg-circles')
       .style('border', '1px solid #f0f')
       .selectAll('circle')
@@ -54,10 +54,10 @@ d3.csv("cereal.csv")
         return d.protein * 5
       })
       .attr('cx', (d, i) => {
-        return i * 400/data.length
+        return i * 1500/data.length
       })
       .attr('cy', (d, i) => {
-        return i * 400/data.length
+        return i * 900/data.length
       })
 
 
