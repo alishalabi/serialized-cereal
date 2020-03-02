@@ -2,9 +2,21 @@
 //   console.log(d3)
 // })
 
+// Instanting button states
+let showCalories = false
+let showProtein = false
+let showFat = false
+let showSodium = false
+let showFiber = false
+let showCarbo = false
+let showPotass = false
+let showVitamins = false
+let showShelf = false
+let showRating = false
+
 d3.csv("cereal.csv")
   .then(function(data) {
-    console.log(data)
+    // console.log(data)
 
     const byBrand = {}
     data.forEach((cereal) => {
@@ -14,68 +26,272 @@ d3.csv("cereal.csv")
       byBrand[cereal.mfr].children.push(cereal)
     })
 
-    console.log(byBrand)
+    // console.log(byBrand)
 
-    // Instantiating all properties we will use
-    const names = data.map(a => a.name)
-    const manufacturer = data.map(a => a.mfg)
-    const type = data.map(a => a.type)
-    const calories = data.map(a => a.calories)
-    const proteins = data.map(a => a.protein)
-    const fats = data.map(a => a.fat)
-    const sodiums = data.map(a => a.sodium)
-    const fibers = data.map(a => a.fiber)
-    const carbos = data.map(a => a.carbo)
-    const sugars = data.map(a => a.sugars)
-    const postasses = data.map(a => a.potass)
-    const vitamins = data.map(a => a.vitamins)
-    const shelf = data.map(a => a.shelf)
-    const weights = data.map(a => a.weight)
-    const cups = data.map(a => a.cups)
-    const ratings = data.map(a => a.rating)
-    // ...
 
-    // Index All Cereal Names
-    const allCereals = document.getElementById("all-cereals")
-    names.forEach(name => {
-      const el = document.createElement("p")
-      allCereals.appendChild(el)
-      el.innerHTML = name + " - "
+  // Base for search URL
+  const baseURL = "https://www.safeway.com/shop/search-results.html?q="
+
+  // Instantiating all properties we will use
+  const names = data.map(a => a.name)
+  const manufacturer = data.map(a => a.mfg)
+  const type = data.map(a => a.type)
+  const calories = data.map(a => a.calories)
+  const proteins = data.map(a => a.protein)
+  const fats = data.map(a => a.fat)
+  const sodiums = data.map(a => a.sodium)
+  const fibers = data.map(a => a.fiber)
+  const carbos = data.map(a => a.carbo)
+  const sugars = data.map(a => a.sugars)
+  const postasses = data.map(a => a.potass)
+  const vitamins = data.map(a => a.vitamins)
+  const shelf = data.map(a => a.shelf)
+  const weights = data.map(a => a.weight)
+  const cups = data.map(a => a.cups)
+  const ratings = data.map(a => a.rating)
+  // ...
+
+
+  // Grabbing buttons
+  const buttonCalories = document.getElementById("button-calories")
+  const buttonProtein = document.getElementById("button-protein")
+  const buttonFat = document.getElementById("button-fat")
+  const buttonSodium = document.getElementById("button-sodium")
+  const buttonFiber = document.getElementById("button-fiber")
+  const buttonCarbo = document.getElementById("button-carbo")
+  const buttonPotass = document.getElementById("button-potass")
+  const buttonVitamins = document.getElementById("button-vitamins")
+  const buttonShelf = document.getElementById("button-shelf")
+  const buttonRating = document.getElementById("button-rating")
+  // const button = document.getElementById("")
+
+
+  // Index All Cereal Names
+  const allCereals = document.getElementById("all-cereals")
+  names.forEach(name => {
+    const el = document.createElement("p")
+    allCereals.appendChild(el)
+    el.innerHTML = name + " - "
+  })
+
+  // Create standard circle distribution
+  d3.select('#svg-circles')
+    .style('border', '1px solid #f0f')
+    // .style("color", "orange")
+    .selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr('r', (d, i) => {
+      // return d.protein * 5
+      return 5
+    })
+    .attr('cx', (d, i) => {
+      return i % 10 * 150 + (150 / 2)
+      // return i * 1500/data.length
+    })
+    .attr('cy', (d, i) => {
+      return Math.floor(i / 10) * 100 + (150 / 2)
+      // return i * 900/data.length
     })
 
-    // Create circle distribution
-    d3.select('#svg-circles')
-      .style('border', '1px solid #f0f')
-      .selectAll('circle')
+  // Event handlers
+  // Buttons
+  buttonCalories.addEventListener("click", (e) => {
+    showCalories != showCalories
+    displayCalories()
+    if (showCalories) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+
+  buttonProtein.addEventListener("click", (e) => {
+    showProtein != showProtein
+    displayProtein()
+    if (showProtein) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonFat.addEventListener("click", (e) => {
+    showFat != showFat
+    displayFat()
+    if (showFat) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonSodium.addEventListener("click", (e) => {
+    showSodium != showSodium
+    displaySodium()
+    if (showSodium) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonFiber.addEventListener("click", (e) => {
+    showFiber != showFat
+    displayFiber()
+    if (showFiber) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonCarbo.addEventListener("click", (e) => {
+    showCarbo != showCarbo
+    displayCarbo()
+    if (showCarbo) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonPotass.addEventListener("click", (e) => {
+    showPotass != showPotass
+    displayPotass()
+    if (showPotass) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonVitamins.addEventListener("click", (e) => {
+    showVitamins != showVitamins
+    displayVitamins()
+    if (showVitamins) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonShelf.addEventListener("click", (e) => {
+    showShelf != showShelf
+    displayShelf()
+    if (showShelf) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonRating.addEventListener("click", (e) => {
+    showRating != showRating
+    displayRating()
+    if (showRating) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+
+  // Display callbacks
+  function displayCalories() {
+    d3.selectAll('circle')
       .data(data)
-      .enter()
-      .append('circle')
       .attr('r', (d, i) => {
+        console.log(d)
+        return d.calories * 0.25
+      })
+  }
+
+  function displayProtein() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
         return d.protein * 5
       })
-      .attr('cx', (d, i) => {
-        return i * 1500/data.length
+  }
+
+  function displayFat() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.fat * 5 + 5
       })
-      .attr('cy', (d, i) => {
-        return i * 900/data.length
+  }
+
+  function displaySodium() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.sodium * 0.1
       })
+  }
+  function displayFiber() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.fiber * 5
+      })
+  }
+  function displayCarbo() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.carbo * 1
+      })
+  }
+  function displayPotass() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.potass * 0.1
+      })
+  }
+  function displayVitamins() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.vitamins * .5
+      })
+  }
+  function displayShelf() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.shelf * 10
+      })
+  }
+
+  function displayRating() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.rating * 0.5
+      })
+  }
 
 
-    // d3.select('#svg-names')
-    //   .selectAll('circles')
-    //   .data(names)
-    //   .enter()
-    //   .append('circle')
-    //   //...
-    //
-    // d3.select('#svg-sugars')
-    //   .selectAll('circles')
-    //   .data(sugars)
-    //   .enter()
-    //   .append('circle')
-    //   //...
+  // d3.select('#svg-names')
+  //   .selectAll('circles')
+  //   .data(names)
+  //   .enter()
+  //   .append('circle')
+  //   //...
+  //
+  // d3.select('#svg-sugars')
+  //   .selectAll('circles')
+  //   .data(sugars)
+  //   .enter()
+  //   .append('circle')
+  //   //...
 
 
+  // End d3.csv with catch
   }).catch(function(err) {
-    console.log(err.message)
+  console.log(err.message)
   })
