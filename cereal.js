@@ -9,6 +9,7 @@ let showFat = false
 let showSodium = false
 let showFiber = false
 let showCarbo = false
+let showSugar = false
 let showPotass = false
 let showVitamins = false
 let showShelf = false
@@ -59,6 +60,7 @@ d3.csv("cereal.csv")
   const buttonSodium = document.getElementById("button-sodium")
   const buttonFiber = document.getElementById("button-fiber")
   const buttonCarbo = document.getElementById("button-carbo")
+  const buttonSugar = document.getElementById("button-sugar")
   const buttonPotass = document.getElementById("button-potass")
   const buttonVitamins = document.getElementById("button-vitamins")
   const buttonShelf = document.getElementById("button-shelf")
@@ -81,17 +83,23 @@ d3.csv("cereal.csv")
     .data(data)
     .enter()
     .append('circle')
+    .attr("stoke-width", () => {
+      return 3
+    })
     .attr('r', (d, i) => {
       return 5
     })
     .attr('cx', (d, i) => {
-      return i % 10 * 150 + (150 / 2)
+      return i % 10 * 150 + (200 / 2)
       // return i * 1500/data.length
     })
     .attr('cy', (d, i) => {
       return Math.floor(i / 10) * 100 + (150 / 2)
       // return i * 900/data.length
     })
+
+  // Adding hover and click effects
+
 
   // Event handlers
   // Buttons
@@ -133,7 +141,7 @@ d3.csv("cereal.csv")
     }
   })
   buttonFiber.addEventListener("click", (e) => {
-    showFiber != showFat
+    showFiber != showFiber
     displayFiber()
     if (showFiber) {
       e.target.classList.add("button-selected")
@@ -145,6 +153,15 @@ d3.csv("cereal.csv")
     showCarbo != showCarbo
     displayCarbo()
     if (showCarbo) {
+      e.target.classList.add("button-selected")
+    } else {
+      e.target.classList.remove("button-selected")
+    }
+  })
+  buttonSugar.addEventListener("click", (e) => {
+    showSugar != showSugar
+    displaySugar()
+    if (showSugar) {
       e.target.classList.add("button-selected")
     } else {
       e.target.classList.remove("button-selected")
@@ -199,6 +216,10 @@ d3.csv("cereal.csv")
         console.log(d)
         return d.calories * 0.25
       })
+      .attr("fill", () => {
+        return "rgba(238, 32, 77, 0.5)"
+      })
+
   }
 
   function displayProtein() {
@@ -207,6 +228,9 @@ d3.csv("cereal.csv")
       .attr('r', (d, i) => {
         console.log(d)
         return d.protein * 5
+      })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
       })
   }
 
@@ -217,6 +241,9 @@ d3.csv("cereal.csv")
         console.log(d)
         return d.fat * 5 + 5
       })
+      .attr("fill", () => {
+        return "rgba(238, 32, 77, 0.5)"
+      })
   }
 
   function displaySodium() {
@@ -224,7 +251,10 @@ d3.csv("cereal.csv")
       .data(data)
       .attr('r', (d, i) => {
         console.log(d)
-        return d.sodium * 0.1
+        return d.sodium * 0.1 + 5
+      })
+      .attr("fill", () => {
+        return "rgba(238, 32, 77, 0.5)"
       })
   }
   function displayFiber() {
@@ -232,7 +262,10 @@ d3.csv("cereal.csv")
       .data(data)
       .attr('r', (d, i) => {
         console.log(d)
-        return d.fiber * 5
+        return d.fiber * 5 + 5
+      })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
       })
   }
   function displayCarbo() {
@@ -242,13 +275,30 @@ d3.csv("cereal.csv")
         console.log(d)
         return d.carbo * 1
       })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
+      })
+  }
+  function displaySugar() {
+    d3.selectAll('circle')
+      .data(data)
+      .attr('r', (d, i) => {
+        console.log(d)
+        return d.sugars * 1 + 5
+      })
+      .attr("fill", () => {
+        return "rgba(238, 32, 77, 0.5)"
+      })
   }
   function displayPotass() {
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
         console.log(d)
-        return d.potass * 0.1
+        return d.potass * 0.1 + 5
+      })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
       })
   }
   function displayVitamins() {
@@ -256,7 +306,10 @@ d3.csv("cereal.csv")
       .data(data)
       .attr('r', (d, i) => {
         console.log(d)
-        return d.vitamins * .5
+        return d.vitamins * .5 + 5
+      })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
       })
   }
   function displayShelf() {
@@ -265,6 +318,9 @@ d3.csv("cereal.csv")
       .attr('r', (d, i) => {
         console.log(d)
         return d.shelf * 10
+      })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
       })
   }
 
@@ -275,6 +331,9 @@ d3.csv("cereal.csv")
         console.log(d)
         return d.rating * 0.5
       })
+      .attr("fill", () => {
+        return "rgba(107, 142, 35, 0.5)"
+      })
   }
 
   function displayDefault() {
@@ -282,6 +341,9 @@ d3.csv("cereal.csv")
       .data(data)
       .attr("r", (d) => {
         return 5
+      })
+      .attr("fill", () => {
+        return "#4f4f4f"
       })
   }
 
