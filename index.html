@@ -9,29 +9,45 @@
 
     <h1>Serialized Cereal</h1>
 
-    <div id="all-cereals" style="display:flex;flex-wrap:wrap;"></div>
-    <div id="button-section">
-      <button id="button-calories">Calories</button>
-      <button id="button-protein">Protein</button>
-      <button id="button-fat">Fat</button>
-      <button id="button-sodium">Sodium</button>
-      <button id="button-fiber">Fiber</button>
-      <button id="button-carbo">Carbohydrates</button>
-      <button id="button-potass">Potassium</button>
-      <button id="button-vitamins">Vitamins</button>
-      <button id="button-shelf">Shelf</button>
-      <button id="button-rating">Rating</button>
-    </div>
-    <div id="layout-tree">
-      <h2>Cereals by manufacturers</h2>
-      <svg id='svg-circles' width="1500" height="900"></svg>
-      <svg id="layout-tree-manufacturer"></svg>
+
+    <div class="content-section">
+      <h2>Cereals By Nutritional Facts</h2>
+      <div class="window-svg">
+        <svg id='svg-circles' width="1500" height="900"></svg>
+      </div>
     </div>
 
 
+    <div class="button-section">
+      <div>
+        <button id="button-calories">Calories</button>
+        <button id="button-protein">Protein</button>
+        <button id="button-fat">Fat</button>
+        <button id="button-sodium">Sodium</button>
+        <button id="button-fiber">Fiber</button>
+        <button id="button-carbo">Carbohydrates</button>
+        <button id="button-potass">Potassium</button>
+        <button id="button-vitamins">Vitamins</button>
+        <button id="button-shelf">Shelf</button>
+        <button id="button-rating">Rating</button>
+      </div>
+      <button id="button-reset">Reset</button>
+    </div>
+
+
+    <!-- Modal Section, Will Be Hidden By Default -->
+    <!-- <button onclick="showModal()">Show Modal</button> -->
+    <div class="modal hide">
+      <div>
+        <h1>Hello</h1>
+        <p>Foo bar</p>
+        <button>Close</button>
+      </div>
+    </div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="cereal.js"></script>
+
 
   </body>
 </html>

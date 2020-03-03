@@ -32,23 +32,23 @@ d3.csv("cereal.csv")
   // Base for search URL
   const baseURL = "https://www.safeway.com/shop/search-results.html?q="
 
-  // Instantiating all properties we will use
-  const names = data.map(a => a.name)
-  const manufacturer = data.map(a => a.mfg)
-  const type = data.map(a => a.type)
-  const calories = data.map(a => a.calories)
-  const proteins = data.map(a => a.protein)
-  const fats = data.map(a => a.fat)
-  const sodiums = data.map(a => a.sodium)
-  const fibers = data.map(a => a.fiber)
-  const carbos = data.map(a => a.carbo)
-  const sugars = data.map(a => a.sugars)
-  const postasses = data.map(a => a.potass)
-  const vitamins = data.map(a => a.vitamins)
-  const shelf = data.map(a => a.shelf)
-  const weights = data.map(a => a.weight)
-  const cups = data.map(a => a.cups)
-  const ratings = data.map(a => a.rating)
+  // (Removed) Instantiating all properties we will use
+  // const names = data.map(a => a.name)
+  // const manufacturer = data.map(a => a.mfg)
+  // const type = data.map(a => a.type)
+  // const calories = data.map(a => a.calories)
+  // const proteins = data.map(a => a.protein)
+  // const fats = data.map(a => a.fat)
+  // const sodiums = data.map(a => a.sodium)
+  // const fibers = data.map(a => a.fiber)
+  // const carbos = data.map(a => a.carbo)
+  // const sugars = data.map(a => a.sugars)
+  // const postasses = data.map(a => a.potass)
+  // const vitamins = data.map(a => a.vitamins)
+  // const shelf = data.map(a => a.shelf)
+  // const weights = data.map(a => a.weight)
+  // const cups = data.map(a => a.cups)
+  // const ratings = data.map(a => a.rating)
   // ...
 
 
@@ -63,27 +63,25 @@ d3.csv("cereal.csv")
   const buttonVitamins = document.getElementById("button-vitamins")
   const buttonShelf = document.getElementById("button-shelf")
   const buttonRating = document.getElementById("button-rating")
-  // const button = document.getElementById("")
+  const buttonReset = document.getElementById("button-reset")
 
 
-  // Index All Cereal Names
-  const allCereals = document.getElementById("all-cereals")
-  names.forEach(name => {
-    const el = document.createElement("p")
-    allCereals.appendChild(el)
-    el.innerHTML = name + " - "
-  })
+  // Index All Cereal Names (Removed)
+  // const allCereals = document.getElementById("all-cereals")
+  // names.forEach(name => {
+  //   const el = document.createElement("p")
+  //   allCereals.appendChild(el)
+  //   el.innerHTML = name + " - "
+  // })
 
   // Create standard circle distribution
   d3.select('#svg-circles')
-    .style('border', '1px solid #f0f')
-    // .style("color", "orange")
+    .style('border', '1px solid #4f4f4f')
     .selectAll('circle')
     .data(data)
     .enter()
     .append('circle')
     .attr('r', (d, i) => {
-      // return d.protein * 5
       return 5
     })
     .attr('cx', (d, i) => {
@@ -189,6 +187,10 @@ d3.csv("cereal.csv")
     }
   })
 
+  buttonReset.addEventListener("click", (e) => {
+    displayDefault()
+  })
+
   // Display callbacks
   function displayCalories() {
     d3.selectAll('circle')
@@ -275,6 +277,13 @@ d3.csv("cereal.csv")
       })
   }
 
+  function displayDefault() {
+    d3.selectAll("circle")
+      .data(data)
+      .attr("r", (d) => {
+        return 5
+      })
+  }
 
   // d3.select('#svg-names')
   //   .selectAll('circles')
@@ -295,3 +304,31 @@ d3.csv("cereal.csv")
   }).catch(function(err) {
   console.log(err.message)
   })
+
+
+
+
+
+
+// Functionality to close modal once opened
+const modalCloseButton = document.querySelector('.modal button')
+modalCloseButton.addEventListener('click', function(e) {
+  document.querySelector('.modal').classList.add('hide')
+})
+
+function showModal() {
+  document.querySelector(".modal").classList.remove("hide")
+}
+
+// Helper Function: Convert String To HTTP Friendly
+function httpFriendly(string) {
+  let friendlyString = ""
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] == " ") {
+      friendlyString = friendlyString + "%20"
+    }
+    else {
+      friendlyString = friendlyString + string[i]
+    }
+  }
+}
