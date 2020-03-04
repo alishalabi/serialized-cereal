@@ -49,7 +49,7 @@ button {
   justify-content: space-around;
 }
 
-.button-selected button {
+.button-selected {
   background-color: black;
   color: white;
 }

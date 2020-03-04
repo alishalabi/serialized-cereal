@@ -83,8 +83,11 @@ d3.csv("cereal.csv")
     .data(data)
     .enter()
     .append('circle')
-    .attr("stoke-width", () => {
-      return 3
+    .attr("stroke-width", () => {
+      return 2
+    })
+    .attr("stroke", () => {
+      return "#4f4f4f"
     })
     .attr('r', (d, i) => {
       return 5
@@ -97,6 +100,8 @@ d3.csv("cereal.csv")
       return Math.floor(i / 10) * 100 + (150 / 2)
       // return i * 900/data.length
     })
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOff)
 
   // Adding hover and click effects
 
@@ -213,7 +218,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.calories * 0.25
       })
       .attr("fill", () => {
@@ -226,7 +230,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.protein * 5
       })
       .attr("fill", () => {
@@ -238,7 +241,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.fat * 5 + 5
       })
       .attr("fill", () => {
@@ -250,7 +252,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.sodium * 0.1 + 5
       })
       .attr("fill", () => {
@@ -261,7 +262,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.fiber * 5 + 5
       })
       .attr("fill", () => {
@@ -272,8 +272,7 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
-        return d.carbo * 1
+        return d.carbo * 1 + 1
       })
       .attr("fill", () => {
         return "rgba(107, 142, 35, 0.5)"
@@ -283,7 +282,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.sugars * 1 + 5
       })
       .attr("fill", () => {
@@ -294,7 +292,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.potass * 0.1 + 5
       })
       .attr("fill", () => {
@@ -305,7 +302,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.vitamins * .5 + 5
       })
       .attr("fill", () => {
@@ -316,7 +312,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.shelf * 10
       })
       .attr("fill", () => {
@@ -328,7 +323,6 @@ d3.csv("cereal.csv")
     d3.selectAll('circle')
       .data(data)
       .attr('r', (d, i) => {
-        console.log(d)
         return d.rating * 0.5
       })
       .attr("fill", () => {
@@ -347,19 +341,18 @@ d3.csv("cereal.csv")
       })
   }
 
-  // d3.select('#svg-names')
-  //   .selectAll('circles')
-  //   .data(names)
-  //   .enter()
-  //   .append('circle')
-  //   //...
-  //
-  // d3.select('#svg-sugars')
-  //   .selectAll('circles')
-  //   .data(sugars)
-  //   .enter()
-  //   .append('circle')
-  //   //...
+  // Mouseover and Mouseoff helper functions
+  function handleMouseOver(d, i) {
+    d3.select(this)
+      .attr('stroke', 'rgba(255, 181, 15, 1.0)')
+      .attr('stroke-width', 5)
+  }
+
+  function handleMouseOff(d, i) {
+    d3.select(this)
+      .attr("stroke", "#4f4f4f")
+      .attr('stroke-width', 2)
+  }
 
 
   // End d3.csv with catch
@@ -380,6 +373,36 @@ modalCloseButton.addEventListener('click', function(e) {
 
 function showModal() {
   document.querySelector(".modal").classList.remove("hide")
+}
+
+// Define spans
+const selectedName = document.getElementById("selected-name")
+const selectedCalories = document.getElementById("selected-calorie")
+const selectedProtein = document.getElementById("selected-protein")
+const selectedFats = document.getElementById("selected-fats")
+const selectedSodium = document.getElementById("selected-sodium")
+const selectedFiber = document.getElementById("selected-fiber")
+const selectedSugar = document.getElementById("selected-sugar")
+const selectedCarbo = document.getElementById("selected-carbo")
+const selectedPotass = document.getElementById("selected-potass")
+const selectedVitamins = document.getElementById("selected-vitamins")
+const selectedShelf = document.getElementById("selected-shelf")
+const selectedRating = document.getElementById("selected-rating")
+
+
+function populateModel(data){
+  selectedName.innerHTML = data.name
+  selectedCalories.innerHTML = data.calories
+  selectedProtein.innerHTML = data.protein
+  selectedFats.innerHTML = data.fats
+  selectedSodium.innerHTML = data.sodium
+  selectedFiber.innerHTML = data.fiber
+  selectedSugar.innerHTML = data.sugar
+  selectedCarbo.innerHTML = data.carbo
+  selectedPotass.innerHTML = data.potass
+  selectedVitamins.innerHTML = data.vitamins
+  selectedShelf.innerHTML = data.shelf
+  selectedRating.innerHTML = data.rating
 }
 
 // Helper Function: Convert String To HTTP Friendly
